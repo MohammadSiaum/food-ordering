@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="text"]:disabled,
+input[type="contact-number"]:disabled,
+input[type="email"]:disabled,
+input[type="password"]:disabled {
+    @apply bg-gray-200;
+    @apply cursor-wait;
+}
+
+
+
+button[type='submit']:disabled {
+    @apply cursor-not-allowed;
+    @apply bg-fuchsia-600;
+}
