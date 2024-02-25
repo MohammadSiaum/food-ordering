@@ -6,7 +6,7 @@ export function useProfile() {
 
     useEffect(()=> {
         setLoading(true);
-        fetch("../../api/profile")
+        fetch("../../../api/profile")
          .then((res) => res.json())
          .then((data) => {
             setData(data);

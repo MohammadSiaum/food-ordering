@@ -9,3 +9,21 @@ export async function POST(req) {
 
     return Response.json(menuItemDoc);
 }
+
+export async function PUT(req) {
+    mongoose.connect(process.env.MONGO_URL);
+    const {_id, ...data} = await req.json();
+    await MenuItem.findByIdAndUpdate(_id, data);
+
+    return Response.json(true);
+
+}
+
+
+export async function GET() {
+    mongoose.connect(process.env.MONGO_URL);
+    const result = await MenuItem.find();
+
+    return Response.json(result);
+
+}

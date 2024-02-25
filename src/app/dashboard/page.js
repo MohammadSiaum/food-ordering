@@ -175,6 +175,7 @@ export default function profilePage() {
                 width={100}
                 height={100}
                 alt="pizza-guru"
+                
               />
             </div>
             <div>

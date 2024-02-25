@@ -1,37 +1,54 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react';
-import  {useProfile}  from "../../../../components/UserProfile";
 import { UploadButton } from '@uploadthing/react';
-import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect, useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import  {useProfile}  from "../../../../../components/UserProfile";
 
 
-const addItem = () => {
+const EditItemPageById = () => {
   const { loading, data } = useProfile();
-
+  const params = useParams();
   const [image, setImage] = useState('');
   const [itemName, setItemName] = useState('');
   const [itemDescrip, setItemDescrip] = useState('');
   const [itemPrice, setItemPrice] = useState('');
+  const [redirectToItems, setRedirectToItems] = useState(false);
+  
+  useEffect(()=> {
+    console.log(params.id);
+    fetch("../../../api/menu-items")
+      .then(res => res.json())
+      .then(items => {
+        const item = items.find(i => i._id === params.id);
+        // console.log(item);
+        setImage(item.image);
+        setItemName(item.itemName)
+        setItemDescrip(item.itemDescrip);
+        setItemPrice(item.itemPrice);
 
+      })
+  }, [params])
 
-  async function handleItemSave(event) {
+  async function handleItemEdit(event) {
     event.preventDefault()
     // console.log(image, itemName, itemDescrip, itemPrice);
-    
-    const item = { image, itemName, itemDescrip, itemPrice }
-    const savingPromise = new Promise(async(resolve, reject)=> {
-      const response = await fetch('../../api/menu-items', {
-        method: 'POST',
+    setRedirectToItems(false);
+    const _id = params.id;
+    const item = {_id, image, itemName, itemDescrip, itemPrice }
+    const editedPromise = new Promise(async(resolve, reject)=> {
+      const response = await fetch('../../../api/menu-items', {
+        method: 'PUT',
         body: JSON.stringify(item),
         headers: {'Content-Type': 'application/json'}
       });
 
       if(response.ok) {
-        event.target.reset();
         resolve();
+        setRedirectToItems(true);
       }
       else {
         reject();
@@ -39,12 +56,19 @@ const addItem = () => {
 
     });
 
-    await toast.promise(savingPromise, {
-       loading: 'Saving this tasty item...',
-       success: 'Saved tasty item.',
+    await toast.promise(editedPromise, {
+       loading: 'Editing this tasty item...',
+       success: 'Edited tasty item.',
        error: 'Error, something was wrong !'
     })
     
+  }
+
+  // console.log(loading);
+
+
+  if (redirectToItems) {
+    return redirect('/dashboard/menu-items');
   }
 
   if (loading) {
@@ -64,13 +88,13 @@ const addItem = () => {
                >view all items</Link>
             </div>
           
-          <h2 className='mb-5 text-center text-fuchsia-700 text-2xl'>Add Item</h2>
+          <h2 className='mb-5 text-center text-fuchsia-700 text-2xl'>Edit Item</h2>
           
           <div>
             <div className="space-y-4">
              <div className="space-y-2">
                 <label>
-                  <span className="text-gray-700">Set item image </span>
+                  <span className="text-gray-700">Edit item image </span>
                 </label>
                  <div className='grid grid-cols-2 gap-3'>  
                    <div className='w-24'>
@@ -105,12 +129,13 @@ const addItem = () => {
                    </div>
                  </div>
               </div>
-             <form className='space-y-4' onSubmit={handleItemSave}>
+             <form className='space-y-4' onSubmit={handleItemEdit}>
               <div className="space-y-2">
                 <label>
                   <span className="block text-gray-700">Item name</span>
                 </label>
                 <input
+                  value={itemName}
                   onChange={(ev) => setItemName(ev.target.value)}
                   name="name"
                   className="block outline-fuchsia-500 text-gray-700 text-md rounded w-full border border-gray-300 p-2 "
@@ -123,7 +148,8 @@ const addItem = () => {
                 <label>
                   <span className="block text-gray-700">Description of item</span>
                 </label>
-                <textarea 
+                <textarea
+                   value={itemDescrip} 
                    onChange={(ev) => setItemDescrip(ev.target.value)}
                    className="block outline-fuchsia-500 text-gray-700  text-md rounded w-full border border-gray-300 p-2"
                    placeholder="Description"
@@ -137,7 +163,7 @@ const addItem = () => {
                 </label>
                 <input
                   onChange={(ev) => setItemPrice(ev.target.value)}
-                  
+                  value={itemPrice}
                   className="block outline-fuchsia-500 text-gray-700 text-md rounded w-full border border-gray-300 p-2 "
                   type="text"
                   placeholder="price $"
@@ -149,7 +175,7 @@ const addItem = () => {
                   type="submit"
                   className="bg-fuchsia-700 hover:bg-fuchsia-800 transiton-all mt-7 justify-center w-full flex gap-4 text-white p-2 border border-fuchsia-700 rounded"
                 >
-                  Add Item
+                  Edit save
                 </button>
               </div>
             </form>
@@ -159,4 +185,4 @@ const addItem = () => {
     );
 };
 
-export default addItem;
+export default EditItemPageById;

@@ -9,7 +9,7 @@ export default function MenuItem({image, title, description, price}){
                 </div>
                 <h4 className="text-2xl my-3">{title}</h4>
                 <p className="text-gray-700 mb-3 text-sm">{description}</p>
-                <button className="text-white hover:bg-fuchsia-800 my-2 bg-fuchsia-700 text-white py-3 px-6 rounded-full">Add To Cart ${price}</button>
+                <button className="text-white hover:bg-fuchsia-800 my-2 bg-fuchsia-700 py-3 px-6 rounded-full">Add To Cart ${price}</button>
         </div>
 
     )
