@@ -6,45 +6,49 @@ import { UploadButton } from '@uploadthing/react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
+import MenuItemForm from '../../../../components/layout/MenuItemForm';
+import { redirect } from 'next/navigation';
 
 
 const addItem = () => {
   const { loading, data } = useProfile();
-
-  const [image, setImage] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [itemDescrip, setItemDescrip] = useState('');
-  const [itemPrice, setItemPrice] = useState('');
+  const [redirectToItems, setRedirectToItems] = useState(false);
 
 
-  async function handleItemSave(event) {
+  async function handleItemSave(event, data) {
     event.preventDefault()
+    setRedirectToItems(false);
     // console.log(image, itemName, itemDescrip, itemPrice);
     
-    const item = { image, itemName, itemDescrip, itemPrice }
     const savingPromise = new Promise(async(resolve, reject)=> {
       const response = await fetch('../../api/menu-items', {
         method: 'POST',
-        body: JSON.stringify(item),
+        body: JSON.stringify(data),
         headers: {'Content-Type': 'application/json'}
       });
 
       if(response.ok) {
-        event.target.reset();
         resolve();
+        setRedirectToItems(true);
       }
+
       else {
         reject();
       }
 
     });
 
+    // console.log(event.target.value.reset());
     await toast.promise(savingPromise, {
        loading: 'Saving this tasty item...',
        success: 'Saved tasty item.',
        error: 'Error, something was wrong !'
     })
     
+  }
+
+  if (redirectToItems) {
+    return redirect('/dashboard/menu-items');
   }
 
   if (loading) {
@@ -66,95 +70,7 @@ const addItem = () => {
           
           <h2 className='mb-5 text-center text-fuchsia-700 text-2xl'>Add Item</h2>
           
-          <div>
-            <div className="space-y-4">
-             <div className="space-y-2">
-                <label>
-                  <span className="text-gray-700">Set item image </span>
-                </label>
-                 <div className='grid grid-cols-2 gap-3'>  
-                   <div className='w-24'>
-                   <UploadButton
-                    className="ut-button:w-24  ut-button:bg-fuchsia-600 ut-button:rounded ut-button:text-sm"
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                    setImage(res[0].url);
-                     toast.success("Upload complete");
-                  
-                     }}
-                     onUploadError={(error) => {
-                  
-                  // alert(`ERROR! ${error.message}`);
-                     toast.error(`${error.message}`);
-                    }}
-                    />
-                   </div>
-                   <div>
-                      {
-                         image 
-                            ? <Image
-                              className="rounded"
-                              src={image}
-                              width={100}
-                              height={100}
-                              alt="pizza-guru"
-                           /> 
-                            : <div className='w-24 h-24 p-5 rounded text-center bg-gray-200'>No image</div>
-                      }
-
-                   </div>
-                 </div>
-              </div>
-             <form className='space-y-4' onSubmit={handleItemSave}>
-              <div className="space-y-2">
-                <label>
-                  <span className="block text-gray-700">Item name</span>
-                </label>
-                <input
-                  onChange={(ev) => setItemName(ev.target.value)}
-                  name="name"
-                  className="block outline-fuchsia-500 text-gray-700 text-md rounded w-full border border-gray-300 p-2 "
-                  type="text"
-                  placeholder="Item name"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label>
-                  <span className="block text-gray-700">Description of item</span>
-                </label>
-                <textarea 
-                   onChange={(ev) => setItemDescrip(ev.target.value)}
-                   className="block outline-fuchsia-500 text-gray-700  text-md rounded w-full border border-gray-300 p-2"
-                   placeholder="Description"
-                   required
-                
-                />
-              </div>
-              <div className="space-y-2">
-                <label>
-                  <span className="block text-gray-700">Base price ($)</span>
-                </label>
-                <input
-                  onChange={(ev) => setItemPrice(ev.target.value)}
-                  
-                  className="block outline-fuchsia-500 text-gray-700 text-md rounded w-full border border-gray-300 p-2 "
-                  type="text"
-                  placeholder="price $"
-                  required
-                />
-              </div>
-              <div className="">
-                <button
-                  type="submit"
-                  className="bg-fuchsia-700 hover:bg-fuchsia-800 transiton-all mt-7 justify-center w-full flex gap-4 text-white p-2 border border-fuchsia-700 rounded"
-                >
-                  Add Item
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+            <MenuItemForm onSubmit={handleItemSave} buttomName={'Add Item'} />
         </section>
     );
 };
