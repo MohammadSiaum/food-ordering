@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import  {useProfile}  from "../../../../../components/UserProfile";
 import MenuItemForm from '../../../../../components/layout/MenuItemForm';
+import DeleteIcon from '../../../../../components/icons/DeleteIcon';
 
 
 const EditItemPageById = () => {
@@ -17,7 +18,7 @@ const EditItemPageById = () => {
   const [redirectToItems, setRedirectToItems] = useState(false);
   
   useEffect(()=> {
-    console.log(params.id);
+    // console.log(params.id);
     fetch("../../../api/menu-items")
       .then(res => res.json())
       .then(items => {
@@ -59,6 +60,45 @@ const EditItemPageById = () => {
     
   }
 
+  async function handleItemDelete() {
+    // console.log(params.id);
+
+    const confirm = window.confirm('Are you delete this item ?');
+  
+    if(confirm) {
+      const promiseDelete = new Promise(async (resolve, reject) => {
+        const id = params.id;
+        console.log(id);
+        const response = await fetch('../../../api/menu-items?_id='+id, {
+           method: 'DELETE',
+        });
+  
+        if(response.ok) {
+          resolve();
+          setRedirectToItems(true);
+        }
+        else {
+          reject();
+        }
+  
+      })
+  
+      toast.promise(promiseDelete, {
+        loading: 'Deleting item...',
+        success: 'Deleted successful.',
+        error: 'Error! something was wrong.'
+      })
+
+      
+    }
+
+    else {
+      toast.error('Delete cancel');
+    }
+    
+
+  }
+
   // console.log(loading);
 
 
@@ -75,16 +115,30 @@ const EditItemPageById = () => {
   }
 
     return (
-        <section className='max-w-md ml-20 px-10 py-5 pb-10 rounded border border-gray-300'>
-            <div className='flex justify-end pb-5'>
+
+        <section className=''>
+          <div className='max-w-xl ml-20 flex justify-end pb-5'>
                <Link 
               href={'/dashboard/menu-items/view-items'} 
-              className='bg-purple-600 p-1 text-white rounded px-2'
+              className='bg-purple-600 p-1 text-white rounded px-3'
                >view all items</Link>
             </div>
-          
-          <h2 className='mb-5 text-center text-fuchsia-700 text-2xl'>Edit Item</h2>
-          <MenuItemForm menuItem={menuItem} onSubmit={handleItemEdit} buttomName={'Edit Item'} />
+          <div className='max-w-xl ml-20 p-10 rounded border border-gray-300'>
+           <h2 className='mb-9 text-center text-fuchsia-700 text-2xl'>Edit Item</h2>
+
+           <MenuItemForm menuItem={menuItem} onSubmit={handleItemEdit} buttomName={'Save Item'} />
+          </div>
+           <div className='ml-20 mt-7 max-w-xl flex justify-center'>
+              <button 
+                  onClick={() => handleItemDelete()}
+                  type='button'
+                  className='flex items-center justify-center gap-4 bg-red-500 hover:bg-red-600 text-md text-white border border-gray-300 rounded w-72 p-2'>
+  
+                <DeleteIcon />
+                <span>Delete Item</span>
+              
+              </button>
+           </div>
 
         </section>
     );

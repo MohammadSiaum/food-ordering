@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useUploadThing } from "../../utils/uploadthing";
 import { UploadButton } from "@uploadthing/react";
 import toast from "react-hot-toast";
+import ProfileIcon from "../../components/icons/ProfileIcon";
 
 export default function profilePage() {
   const session = useSession();
@@ -154,8 +155,13 @@ export default function profilePage() {
 
   return (
     <section className="">
-      <div className="mt-16 border shadow-sm shadow-black/25 border-gray-300 rounded-md p-5 py-9 max-w-lg mx-auto">
-        <h1 className="text-3xl mb-5 text-fuchsia-700 text-center">Profile</h1>
+      <div className="mt-16 border shadow-sm shadow-black/25 border-gray-300 rounded-md p-9 py-11 max-w-xl mx-auto">
+        <div className="text-3xl flex items-center gap-3 justify-center mb-9 text-fuchsia-700 text-center">
+            <ProfileIcon className="w-9 h-8 font-semibold" />
+            <h1>Profile</h1>
+
+        </div>
+
         {profileSaved && (
           <h2 className="text-center mb-5 p-2 bg-green-100 rounded border-2 border-green-300">
             Profile saved
@@ -179,7 +185,7 @@ export default function profilePage() {
             </div>
             <div>
               <UploadButton
-                className="ut-button:w-24 ut-button:rounded mr-4 ut-button:text-sm"
+                className="ut-button:w-24 ut-button:rounded mr-7 ut-button:text-sm"
                 endpoint="imageUploader"
                 onClientUploadComplete={(res) => {
                   // setIsUpload(true)

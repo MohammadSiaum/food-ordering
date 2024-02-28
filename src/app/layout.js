@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <main className="max-w-7xl mx-auto py-5">
+        <main className="max-w-7xl mx-auto py-2">
           <AppProvider>
             <Header />
             <Toaster /> 

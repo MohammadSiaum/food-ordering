@@ -60,17 +60,20 @@ const addItem = () => {
   }
 
     return (
-        <section className='max-w-md ml-20 px-10 py-5 pb-10 rounded border border-gray-300'>
-            <div className='flex justify-end pb-5'>
+        <section className=''>
+            <div className='max-w-xl ml-20 flex justify-end pb-5'>
                <Link 
               href={'/dashboard/menu-items/view-items'} 
-              className='bg-purple-600 p-1 text-white rounded px-2'
+              className='bg-purple-600 p-1 text-white rounded px-3'
                >view all items</Link>
             </div>
-          
-          <h2 className='mb-5 text-center text-fuchsia-700 text-2xl'>Add Item</h2>
-          
-            <MenuItemForm onSubmit={handleItemSave} buttomName={'Add Item'} />
+
+            <div className='max-w-xl ml-20 p-10 rounded border border-gray-300'>
+              <h2 className='mb-9 text-center text-fuchsia-700 text-2xl'>Add Item</h2>
+
+              <MenuItemForm onSubmit={handleItemSave} buttomName={'Add Item'} />
+
+            </div>
         </section>
     );
 };
