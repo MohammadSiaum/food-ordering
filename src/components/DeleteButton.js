@@ -7,10 +7,10 @@ const DeleteButton = ({ label, onDelete }) => {
   return (
     <>
       <button
+      type="button"
         onClick={() => setShowConfirm(true)}
-        className="bg-red-500 text-white hover:bg-red-600 p-2 rounded-full mr-3"
       >
-        <DeleteIcon className="w-6 h-5" />
+        {label}
       </button>
 
       {showConfirm && (
@@ -21,7 +21,7 @@ const DeleteButton = ({ label, onDelete }) => {
               <div className="flex justify-between mt-5">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white p-1 px-7 rounded"
+                  className="bg-gray-700 hover:bg-gray-800 text-white p-1 px-7 rounded"
                   type="button"
                 >
                   Cancel

@@ -1,6 +1,6 @@
 import { UploadButton } from "@uploadthing/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import PlusIcon from '../../components/icons/PlusIcon';
@@ -15,6 +15,18 @@ const MenuItemForm = ({ onSubmit, menuItem, buttomName }) => {
   const [itemPrice, setItemPrice] = useState(menuItem?.itemPrice || "");
   const [sizes, setSizes] = useState(menuItem?.sizes || []);
   const [extraIngredientPrices , setExtraIngredientPrices] = useState( menuItem?.extraIngredientPrices|| []);
+  const [category, setCategory] = useState(menuItem?.category || '');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(()=> {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => setCategories(data))
+
+  }, []);
+  
+  
+  console.log(categories);
 
 
   
@@ -61,7 +73,7 @@ const MenuItemForm = ({ onSubmit, menuItem, buttomName }) => {
       </div>
       <form
         onSubmit={(event) =>
-          onSubmit(event, { image, itemName, itemDescrip, itemPrice,sizes, extraIngredientPrices })
+          onSubmit(event, { image, itemName, itemDescrip, category, itemPrice,sizes, extraIngredientPrices, })
         }
         className="space-y-4"
       >
@@ -90,6 +102,23 @@ const MenuItemForm = ({ onSubmit, menuItem, buttomName }) => {
             placeholder="Description"
             required
           />
+        </div>
+        <div className="space-y-2">
+          <label>
+            <span className="block text-gray-700">Select category</span>
+          </label>
+          <select
+             value={category}
+             onChange={(ev) => setCategory(ev.target.value)}
+             className="block bg-purple-50 outline-fuchsia-500 text-gray-700 text-md rounded w-full border border-gray-300 p-2 "
+          >
+            {categories?.length > 0 && categories.map(c => (
+              <option key={c._id}>{c.name}</option>
+            ))}
+
+
+          </select>
+          
         </div>
         <div className="space-y-2">
           <label>

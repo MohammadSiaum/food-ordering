@@ -12,6 +12,15 @@ const categoriesPage = () => {
   const [editedCategory, setEditedCategory] = useState(null);
   const [categories, setCategories] = useState([]);
 
+  const caterogyLabel = <>
+
+    <div
+        className="bg-red-500 text-white hover:bg-red-600 p-2 rounded-full mr-3">
+        <DeleteIcon className="w-6 h-6" />
+    </div>
+  
+  </>
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -174,7 +183,7 @@ const categoriesPage = () => {
                               className="bg-purple-200 hover:bg-purple-300 border p-2 border-gray-300 rounded">
                             <EditIcon className="w-5 h-5" />
                           </button>
-                          <DeleteButton onDelete={ ()=>handleCategoryDelete(c._id)} />
+                          <DeleteButton label={caterogyLabel} onDelete={ ()=>handleCategoryDelete(c._id)} />
 
                           {/* <button 
                               onClick={() => handleCategoryDelete(c._id)}

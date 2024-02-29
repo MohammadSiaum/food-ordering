@@ -88,6 +88,17 @@ const DashboardMenuItem = () => {
       </div>
       <Link
         className={
+          path === "/dashboard/orders"
+            ? "flex gap-2 pl-2 rounded border border-gray-400 bg-purple-600 text-white p-1"
+            : "flex gap-2 pl-2 hover:bg-purple-400 bg-purple-300 p-1 rounded border border-gray-400"
+        }
+        href={"/dashboard/orders"}
+      >
+        <RightIcon className="w-5 h-6" />
+        <span>Orders</span>
+      </Link>
+      <Link
+        className={
           path === "/dashboard/users"
             ? "flex gap-2 pl-2 rounded border border-gray-400 bg-purple-600 text-white p-1"
             : "flex gap-2 pl-2 hover:bg-purple-400 bg-purple-300 p-1 rounded border border-gray-400"
