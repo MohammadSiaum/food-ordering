@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const CheckoutBox = ({profileData, loading, totalPrice, cartProductsSize}) => {
   const [email, setEmail] = useState('');
@@ -35,13 +36,17 @@ const CheckoutBox = ({profileData, loading, totalPrice, cartProductsSize}) => {
         </div>
     )
    }
+   function handlePaymentSubmit(ev){
+     ev.preventDefault();
+     toast.success('Payment successfull.');
+   }
   
   return (
     <div className="bg-gray-100 p-9 rounded">
       <div className="mb-2">
         <h2 className="text-center font-semibold text-xl text-fuchsia-800">Checkout</h2>
       </div>
-      <form className="space-y-3">
+      <form onSubmit={handlePaymentSubmit} className="space-y-3">
         <div className="space-y-2">
           <label>
             <span className="block text-gray-700">Email</span>
