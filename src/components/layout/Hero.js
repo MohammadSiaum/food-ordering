@@ -14,11 +14,11 @@ export default function Hero() {
                complete, a simple yet delicious joy in life
                </p>
                <div className="flex gap-4">
-                  <button className="flex gap-2  bg-fuchsia-700 text-white py-2 px-4 rounded">
+                  <button className="flex gap-2  bg-fuchsia-700 hover:bg-fuchsia-800 text-white py-2 px-4 rounded">
                     Order Now
                     <RightLong/>
                   </button>
-                  <button className="flex gap-2 bg-gray-700 text-white py-2 px-3 rounded">
+                  <button className="flex gap-2 bg-gray-700 hover:bg-gray-800 text-white py-2 px-3 rounded">
                     Learn more
                     <RightCircle/>
                   </button>

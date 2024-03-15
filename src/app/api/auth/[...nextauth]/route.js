@@ -7,7 +7,6 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "../../../../libs/mongoConnect";
 import NextAuth from "next-auth/next";
-import { use } from "react";
 import { useSession } from "next-auth/react";
 import AppSession from '../../../../components/AppSession'
 
@@ -22,7 +21,8 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: "Credentials", 
+      name: "Credentials",
+      id: 'credentials', 
       credentials: {
         email: { label: "Email", type: "email", placeholder: "siam@gmail.com"},
         password: { label: "Password", type: "password" }
@@ -31,7 +31,7 @@ export const authOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
-        console.log(credentials);
+        // console.log(credentials);
 
         mongoose.connect(process.env.MONGO_URL);
         const user = await User.findOne({email});
@@ -41,7 +41,7 @@ export const authOptions = {
         // console.log(user);
         // console.log(user);
         if (passwordOK) {
-          console.log(user, 'auth');
+          // console.log(user, 'auth');
           return user;
         }
 
@@ -52,8 +52,8 @@ export const authOptions = {
   ],
 }
 
-const appSession = AppSession;
-console.log(appSession, 'from route');
+// const appSession = AppSession;
+// console.log(appSession, 'from route');
 
 // console.log(authOptions, 'authOptions');
 

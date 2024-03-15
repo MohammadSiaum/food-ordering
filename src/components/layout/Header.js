@@ -2,35 +2,24 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { useProfile } from "../UserProfile";
-
-// import { signOut } from "next-auth/react";
-// import useSession from "next-auth/react";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../AppContext";
+import ShoppingCartIcon from "../icons/ShoppingCartIcon";
 
 export default function Header() {
   const { loading, data } = useProfile();
   const session = useSession();
-  // console.log(session, 'from header')
-
-  const [sess, setSess] = useState(null);
-
-  useEffect(() => {
-    setSess(session);
-  }, [session]);
-
-  console.log(sess, "from header section");
-
   const status = session?.status;
-
   let userName = session?.data?.user?.name;
+
+  const {cartProducts} = useContext(CartContext);
 
   if (userName && userName?.includes(" ")) {
     userName = userName.split(" ")[0];
   }
 
-  if (status === "loading" || loading) {
+  if (status === "loading") {
     // userName = ' ';
     return (
       <div className="text-center mt-2">
@@ -39,6 +28,7 @@ export default function Header() {
     );
   }
 
+  
   return (
     <header className="sticky top-0 p-2 px-4 rounded bg-purple-100">
       <div className=" flex items-center justify-between">
@@ -51,8 +41,8 @@ export default function Header() {
           <nav className="flex items-center gap-7 text-gray-900">
             <Link href="/">Home</Link>
             <Link href="/menu">Menu</Link>
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link>
+            <Link href="/#about">About</Link>
+            <Link href="/#contact">Contact</Link>
             {data?.admin && (
               <Link
                 className="bg-purple-400 hover:bg-purple-500 border border-gray-300 p-1 px-2 rounded"
@@ -97,6 +87,17 @@ export default function Header() {
               </Link>
             </>
           )}
+          
+          <Link 
+             className="relative" 
+             href={'/cart'}>
+            <ShoppingCartIcon />
+            <span 
+               className="absolute -top-3 -right-3 bg-fuchsia-700 text-white w-5 h-5 p-1 text-center text-xs rounded-full leading-3"
+            
+              >{cartProducts.length}</span>
+           </Link>
+
         </nav>
       </div>
     </header>

@@ -4,31 +4,53 @@ import { getServerSession } from "next-auth/next";
 import { User } from '../../../models/User';
 import { authOptions } from "../auth/[...nextauth]/route";
 
+
 export async function PUT(req) {
     mongoose.connect(process.env.MONGO_URL);
-    const data = await req.json();
-    console.log('data : ' + data.city);
-    const session = await getServerSession(authOptions);
-    // console.log({session});
-    const email = session?.user?.email
-
-    if (email === data.email) {
-
-        await User.updateOne({email}, data)
-
+    const user = await req.json();
+    const {_id, data} = user;
+    
+    let filter = {};
+    if(_id) {
+        // user
+        filter = {_id};
     }
-
-    return Response.json(true);
+    else {
+        // profile
+        const session = await getServerSession(authOptions);
+        // console.log({session});
+        const email = session?.user?.email;
+        filter = {email};
+        
+    }
+    // console.log(filter);
+    await User.updateOne(filter, data);
+    
+    return Response.json(true); 
 }
 
-export async function GET() {
+export async function GET(req) {
     mongoose.connect(process.env.MONGO_URL);
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    /* if (!email ) {
-        return Response.json({});
-    } */
-    const user = await User.findOne({email});
+
+
+    const url = new URL(req.url);
+    const _id = url.searchParams.get('_id');
+
+    let filterUser = {};
+    if (_id) {
+        filterUser = {_id};        
+    }
+    else {
+        const session = await getServerSession(authOptions);
+        const email = session?.user?.email;
+        filterUser = {email};    
+    }
+
+    const user = await User.findOne(filterUser);
     return Response.json(user);
 
+
+
+    
+    
 }

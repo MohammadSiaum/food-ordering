@@ -51,7 +51,7 @@ const viewItemsPage = () => {
                   />
                 </div>
                 <h4 className="text-xl my-2">{item.itemName}</h4>
-                <button className="text-white text-sm hover:bg-fuchsia-800 my-2 bg-fuchsia-600 py-2 px-3 rounded-full">
+                <button className="text-white text-sm hover:bg-fuchsia-800 my-2 bg-violet-600 py-2 px-3 rounded-full">
                   Base price ${item.itemPrice}
                 </button>
               </div>

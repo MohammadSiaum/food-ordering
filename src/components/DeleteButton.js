@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DeleteIcon from "../components/icons/DeleteIcon";
 
 const DeleteButton = ({ label, onDelete }) => {
   const [showConfirm, setShowConfirm] = useState(false);

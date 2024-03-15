@@ -5,7 +5,7 @@ export default function AboutUs() {
   
 
   return (
-    <section className="my-24">
+    <section className="my-24 scroll-mt-24" id="about">
       <SectionHeader subHeader={"Our Story"} mainHeader={"About us"} />
       <div className="text-gray-600 mt-7">
         <div className="grid grid-cols-5">

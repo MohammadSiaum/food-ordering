@@ -12,8 +12,8 @@ export default function Home() {
 
       <Hero/>
       <HomeMenu/>
-      <AboutUs/>
-      <ContactUs/>
+      <AboutUs />
+      <ContactUs />
       
     </>
   );

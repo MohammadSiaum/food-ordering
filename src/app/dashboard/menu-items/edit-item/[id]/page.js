@@ -109,7 +109,7 @@ const EditItemPageById = () => {
       <div className="max-w-xl ml-20 flex justify-end pb-5">
         <Link
           href={"/dashboard/menu-items/view-items"}
-          className="bg-purple-600 p-1 text-white rounded px-3"
+          className="bg-purple-600 hover:bg-purple-700 p-1 text-white rounded px-3"
         >
           view all items
         </Link>
