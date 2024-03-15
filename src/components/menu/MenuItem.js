@@ -4,6 +4,9 @@ import { useContext, useState } from "react";
 import { CartContext } from "../AppContext";
 import toast from "react-hot-toast";
 import MenuItemTile from '../menu/MenuItemTile';
+import FlyingButton from "react-flying-item";
+import AddToCartButtonForMenuItem from "./AddToCartButtonForMenuItem";
+
 
 
 export default function MenuItem({ item }) {
@@ -27,8 +30,10 @@ export default function MenuItem({ item }) {
       return;
     }
     addToCart(item, selectedSize, selectedExtras);
-    toast.success("Added to cart.");
-    setShowPopup(false);
+    setTimeout(() => {
+      setShowPopup(false);
+
+    }, 1000);
     
   }
 
@@ -112,16 +117,19 @@ export default function MenuItem({ item }) {
                         ))}
                       </div>
                     )}
-                    <button 
-                       type="button"
-                       onClick={handleAddToCartButton}
-                       className="bg-purple-600 hover:bg-purple-700 sticky bottom-1 mt-4 w-full p-3 text-white border rounded">Add To Cart <span className="font-semibold">${selectedPrice}</span>
-                    </button>
-                    <button 
-                       type="button"
-                       onClick={() => setShowPopup(false)}
-                       className="bg-gray-700 hover:bg-gray-800 mt-4 w-full p-3 text-white border rounded">Cancel Cart
-                    </button>
+                    <div className="flex mt-7 justify-between">
+
+                      <AddToCartButtonForMenuItem 
+                        onClick={handleAddToCartButton} 
+                        image={image} 
+                        selectedPrice={selectedPrice} />
+                    
+                       <button 
+                         type="button"
+                         onClick={() => setShowPopup(false)}
+                         className="bg-gray-700 hover:bg-gray-800 px-7 p-3 text-white border rounded">Cancel Cart
+                      </button>
+                    </div>
                </div>
 
             </div>

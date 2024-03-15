@@ -12,6 +12,7 @@ const CartPage = () => {
   const { cartProducts, removeCartProduct } = useContext(CartContext);
   const { data: profileData, loading } = useProfile();
   //   console.log(cartProducts);
+  const cartProductsSize = cartProducts?.length;
 
   let totalPrice = 0;
   const delivery = 5;
@@ -113,6 +114,7 @@ const CartPage = () => {
             profileData={profileData}
             loading={loading}
             totalPrice={totalPrice}
+            cartProductsSize={cartProductsSize}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CheckoutBox = ({profileData, loading, totalPrice}) => {
+const CheckoutBox = ({profileData, loading, totalPrice, cartProductsSize}) => {
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
@@ -123,14 +123,18 @@ const CheckoutBox = ({profileData, loading, totalPrice}) => {
             placeholder="country"
           />
         </div>
-        <div className="">
-              <button
-                type="submit"
-                className="bg-fuchsia-700 hover:bg-fuchsia-800 transiton-all mt-5 justify-center w-full flex gap-4 text-white p-2 border border-fuchsia-700 rounded"
-              >
-                Pay ${totalPrice}
-              </button>
-        </div>
+        {cartProductsSize > 0 && (
+          <div className="">
+            <button
+              type="submit"
+              className="bg-fuchsia-700 hover:bg-fuchsia-800 transiton-all mt-5 justify-center w-full flex gap-4 text-white p-2 border border-fuchsia-700 rounded"
+            >
+              Pay ${totalPrice}
+            </button>
+         </div>
+
+        )}
+        
       </form>
     </div>
   );

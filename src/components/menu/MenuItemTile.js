@@ -1,8 +1,17 @@
 import Image from 'next/image';
 import React from 'react';
+import AddToCartButton from './AddToCartButton';
 
 const MenuItemTile = ({item, onAddToCart}) => {
-    const {image, itemName, itemDescrip, itemPrice} = item;
+    const { image, 
+            sizes, 
+            extraIngredientPrices, 
+            itemName, 
+            itemDescrip, 
+            itemPrice } = item;
+
+    const hasSizesOrExtras = sizes?.length > 0 || extraIngredientPrices?.length > 0;
+
     return (
         <div className="bg-fuchsia-100 border border-gray-400 hover:shadow-lg hover:shadow-black/25 hover:bg-fuchsia-200 cursor-pointer p-6 rounded-lg text-center transition-all">
         <div>
@@ -16,13 +25,13 @@ const MenuItemTile = ({item, onAddToCart}) => {
         </div>
         <h4 className="text-2xl my-3">{itemName}</h4>
         <p className="text-gray-700 mb-3 text-sm">{itemDescrip}</p>
-        <button
-          type="button"
-          onClick={onAddToCart}
-          className="text-white hover:bg-fuchsia-800 my-2 bg-fuchsia-700 py-3 px-6 rounded-full"
-        >
-          Add To Cart ${itemPrice}
-        </button>
+
+        <AddToCartButton 
+           onClick={onAddToCart}
+           itemPrice={itemPrice}
+           image={image} 
+           hasSizesOrExtras={hasSizesOrExtras} />
+  
       </div>
     );
 };
