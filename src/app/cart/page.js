@@ -29,7 +29,7 @@ const CartPage = () => {
           {cartProducts?.length === 0 && (
             <div className="text-center mt-9">
               <h2 className="text-center">
-                No products in your shopping cart!{" "}
+                No products in your shopping cart!{' '}
                 <Link
                   className="underline font-semibold text-fuchsia-800"
                   href={"/menu"}
@@ -90,7 +90,7 @@ const CartPage = () => {
                 </div>
               </div>
             ))}
-          {subTotal && (
+          {subTotal > 0 && (
             <div>
               <h3 className="text-lg pt-2 pr-24 text-right">
                 <span className="text-gray-600">Sub Total : </span>
