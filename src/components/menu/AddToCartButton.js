@@ -1,5 +1,5 @@
 import React from "react";
-import FlyingButton from "react-flying-item";
+
 
 const AddToCartButton = ({ hasSizesOrExtras, onClick, itemPrice, image }) => {
   if (!hasSizesOrExtras) {
