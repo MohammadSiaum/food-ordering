@@ -8,10 +8,6 @@ export async function POST(req) {
     mongoose.connect(process.env.MONGO_URL);
     const pass = body.password;
 
-    if (!pass.length || pass.length < 6) {
-        new Error('password must be at least 6 characters!');
-        return false;
-    }
     const notHashedPass = pass;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(notHashedPass, salt);
