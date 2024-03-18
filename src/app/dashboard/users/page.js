@@ -7,6 +7,7 @@ import DeleteIcon from "../../../components/icons/DeleteIcon";
 import UserGroupIcon from "../../../components/icons/UserGroupIcon";
 import Link from "next/link";
 import EditIcon from "../../../components/icons/EditIcon";
+import toast from "react-hot-toast";
 
 const UsersPage = () => {
   const { loading, data } = useProfile();
@@ -19,12 +20,45 @@ const UsersPage = () => {
       </div>
     </>
   );
-
   useEffect(() => {
-    fetch("../../api/users")
+    fetchUsers();
+  }, []);
+
+  function fetchUsers () {
+    fetch("/api/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
-  }, []);
+    
+
+  }
+
+  function handleDeleteUser (id) {
+    // const selectedUsers = users.filter(user => user._id !== id);
+    // setUsers(selectedUsers);
+
+    const deletePromise = new Promise(async (resolve, reject) => {
+      
+      const response = await fetch("/api/users?_id=" + id, {
+        method: "DELETE",
+      });
+      fetchUsers();
+      
+
+      if (response.ok) {
+        
+        resolve();
+      } else {
+        reject();
+      }
+    });
+
+    toast.promise(deletePromise, {
+      loading: "Deleting user",
+      success: "Delete user",
+      error: "Error, something is wrong !",
+    });
+    
+  }
 
   // console.log(users);
 
