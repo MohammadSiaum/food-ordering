@@ -1,8 +1,10 @@
 // import authOptions from '../auth/[...nextauth]/route';
+
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth/next";
 import { User } from '../../../models/User';
 import { authOptions } from "../auth/[...nextauth]/route";
+
 
 
 export async function PUT(req) {
