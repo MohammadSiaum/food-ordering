@@ -92,7 +92,7 @@ export const authOptions = {
   ],
 }
 
-export default NextAuth(authOptions);
+NextAuth(authOptions);
 // const appSession = AppSession;
 // console.log(appSession, 'from route');
 
