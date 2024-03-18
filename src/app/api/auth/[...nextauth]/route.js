@@ -10,7 +10,7 @@ import NextAuth from "next-auth/next";
 import { useSession } from "next-auth/react";
 import AppSession from '../../../../components/AppSession'
 
-/* const handler = NextAuth({
+const handler = NextAuth({
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -49,10 +49,10 @@ import AppSession from '../../../../components/AppSession'
     }),
   ],
 
-}) */
+})
 
 
-export const authOptions = {
+/* export const authOptions = {
 
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -90,13 +90,12 @@ export const authOptions = {
       },
     }),
   ],
-}
+} */
 
-NextAuth(authOptions);
 // const appSession = AppSession;
 // console.log(appSession, 'from route');
 
 // console.log(authOptions, 'authOptions');
 // const handler = NextAuth(authOptions)
 
-
+export { handler as GET, handler as POST };
