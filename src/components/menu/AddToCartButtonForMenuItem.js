@@ -1,14 +1,7 @@
 import React from "react";
-import FlyingButton from "react-flying-item";
 
 const AddToCartButtonForMenuItem = ({ onClick, selectedPrice, image }) => {
   return (
-    <FlyingButton
-      className="w-full"
-      targetTop={"5%"}
-      targetLeft={"80%"}
-      src={image}
-    >
       <button
         type="button"
         onClick={onClick}
@@ -17,7 +10,6 @@ const AddToCartButtonForMenuItem = ({ onClick, selectedPrice, image }) => {
         Add To Cart {' '}
         <span className="font-semibold">${selectedPrice}</span>
       </button>
-    </FlyingButton>
   );
 };
 
