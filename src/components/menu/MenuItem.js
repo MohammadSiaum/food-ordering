@@ -31,6 +31,7 @@ export default function MenuItem({ item }) {
     addToCart(item, selectedSize, selectedExtras);
     setTimeout(() => {
       setShowPopup(false);
+      toast.success('Added cart');
 
     }, 1000);
     
