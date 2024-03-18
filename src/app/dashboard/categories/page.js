@@ -6,7 +6,7 @@ import DeleteIcon from "../../../components/icons/DeleteIcon";
 import EditIcon from "../../../components/icons/EditIcon";
 import DeleteButton from "../../../components/DeleteButton";
 
-const categoriesPage = () => {
+const CategoriesPage = () => {
   const { loading, data } = useProfile();
   const [categoryName, setCategoryName] = useState("");
   const [editedCategory, setEditedCategory] = useState(null);
@@ -211,4 +211,4 @@ const categoriesPage = () => {
   );
 };
 
-export default categoriesPage;
+export default CategoriesPage;

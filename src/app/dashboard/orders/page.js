@@ -1,6 +1,6 @@
 import React from 'react';
 
-const page = () => {
+const OrderPage = () => {
     return (
         <div>
             <h2 className='text-center text-fuchsia-700 text-2xl'>Orders List </h2>
@@ -8,4 +8,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default OrderPage;

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import UserForm from "../../components/layout/UserForm";
 
-export default function profilePage() {
+export default function ProfilePage() {
   const session = useSession();
 
   const { status } = session;

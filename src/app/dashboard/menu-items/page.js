@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-const viewItemsPage = () => {
+const ViewPage = () => {
   const { loading, data } = useProfile();
   const [items, setItems] = useState([]);
   const [image, setImage] = useState('');
@@ -62,4 +62,4 @@ const viewItemsPage = () => {
   );
 };
 
-export default viewItemsPage;
+export default ViewPage;

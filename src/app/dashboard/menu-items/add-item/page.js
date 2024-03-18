@@ -10,7 +10,7 @@ import MenuItemForm from '../../../../components/layout/MenuItemForm';
 import { redirect } from 'next/navigation';
 
 
-const addItem = () => {
+const AddItem = () => {
   const { loading, data } = useProfile();
   const [redirectToItems, setRedirectToItems] = useState(false);
 
@@ -78,4 +78,4 @@ const addItem = () => {
     );
 };
 
-export default addItem;
+export default AddItem;
