@@ -29,11 +29,12 @@ export default function MenuItem({ item }) {
       return;
     }
     addToCart(item, selectedSize, selectedExtras);
-    setTimeout(() => {
+    setShowPopup(false);
+    toast.success('Added cart');
+    /* setTimeout(() => {
       setShowPopup(false);
-      toast.success('Added cart');
 
-    }, 1000);
+    }, 1000); */
     
   }
 
